@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Help App</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <h1>🌍 Community Help</h1>
+    <p class="subtitle">
+        Connecting people who need help with those who can work
+    </p>
+
+    <!-- Main Actions -->
+    <div class="actions">
+        <a class="btn" href="/jobs">🔎 View Jobs</a>
+        <a class="btn secondary" href="/post">➕ Post a Job</a>
+        <a class="btn" href="/contacts">🚨 Emergency</a>
+    </div>
+
+    <!-- 👇 LOGIN / USER SECTION -->
+    <div style="margin-top:20px;">
+        {% if session.get('user') %}
+            <p>Welcome, {{ session['user'] }} 👋</p>
+            <a class="btn" href="/logout">Logout</a>
+        {% else %}
+            <a class="btn" href="/login">Login</a>
+            <a class="btn secondary" href="/register">Register</a>
+        {% endif %}
+    </div>
+
+    <!-- Info Section -->
+    <div class="info">
+        <h3>How it works</h3>
+        <p>1. Post a job with details</p>
+        <p>2. Workers find opportunities nearby</p>
+        <p>3. Connect and get work done</p>
+    </div>
+
+</div>
+
+<!-- Service Worker (offline feature) -->
+<script>
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/static/sw.js');
+}
+</script>
+
+</body>
+</html>

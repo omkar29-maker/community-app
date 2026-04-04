@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post Job</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Post a Job</h2>
+
+    <form method="POST">
+        <input name="title" placeholder="Job Title"><br>
+        <input name="location" placeholder="Location"><br>
+        <input name="contact" placeholder="Contact"><br>
+        <input name="salary" placeholder="Salary"><br>
+        <input name="workers" placeholder="Workers Needed"><br>
+
+        <label>Meals Provided:</label>
+        <select name="meals">
+            <option>Yes</option>
+            <option>No</option>
+        </select><br>
+
+        <textarea name="description" placeholder="Job Description"></textarea><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <a href="/">Back</a>
+</div>
+
+</body>
+</html>

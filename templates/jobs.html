@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jobs</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Available Jobs</h2>
+
+    <!-- Search Form -->
+    <form method="GET">
+        <input type="text" name="search" placeholder="Search job title">
+        <input type="text" name="location" placeholder="Filter by location">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Job List -->
+    {% for job in jobs %}
+        <div class="card">
+            <h3>{{ job[1] }}</h3>
+            <p><b>Location:</b> {{ job[2] }}</p>
+            <p><b>Contact:</b> {{ job[3] }}</p>
+            <p><b>Salary:</b> {{ job[4] }}</p>
+            <p><b>Workers:</b> {{ job[5] }}</p>
+            <p><b>Meals:</b> {{ job[6] }}</p>
+            <p>{{ job[7] }}</p>
+        </div>
+    {% endfor %}
+
+    <a href="/">Back</a>
+</div>
+
+</body>
+</html>
