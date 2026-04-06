@@ -10,7 +10,7 @@ DATABASE_URL = os.environ.get("DATABASE_URL")
 conn = psycopg2.connect(DATABASE_URL)
 cursor = conn.cursor()
 
-# 🛠️ Create tables if not exist
+# 🛠️ Create tables
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
@@ -34,10 +34,45 @@ CREATE TABLE IF NOT EXISTS jobs (
 
 conn.commit()
 
+# 🌐 LANGUAGE SYSTEM
+translations = {
+    "en": {
+        "title": "Community Help App",
+        "welcome_login": "Welcome back! Keep going, you are doing great 💪",
+        "welcome_register": "Welcome! Your journey starts here 🚀"
+    },
+    "hi": {
+        "title": "समुदाय सहायता ऐप",
+        "welcome_login": "वापसी पर स्वागत है! आप बहुत अच्छा कर रहे हैं 💪",
+        "welcome_register": "स्वागत है! आपकी यात्रा यहीं से शुरू होती है 🚀"
+    },
+    "mr": {
+        "title": "समुदाय मदत अ‍ॅप",
+        "welcome_login": "पुन्हा स्वागत आहे! तुम्ही खूप छान करत आहात 💪",
+        "welcome_register": "स्वागत आहे! तुमचा प्रवास इथून सुरू होतो 🚀"
+    },
+    "kr": {
+        "title": "커뮤니티 도움 앱",
+        "welcome_login": "다시 오신 것을 환영합니다! 잘하고 있어요 💪",
+        "welcome_register": "환영합니다! 당신의 여정이 시작됩니다 🚀"
+    }
+}
+
+@app.route('/set_language/<lang>')
+def set_language(lang):
+    session['lang'] = lang
+    return redirect('/')
+
+def get_lang():
+    return session.get('lang', 'en')
+
 # 🏠 Home
 @app.route('/')
 def index():
-    return render_template('index.html')
+    lang = get_lang()
+    t = translations.get(lang, translations['en'])
+    message = session.pop('message', None)
+    return render_template('index.html', t=t, message=message)
 
 # 📋 View Jobs
 @app.route('/jobs')
@@ -84,7 +119,12 @@ def register():
         """, (username, password))
 
         conn.commit()
-        return redirect('/login')
+
+        lang = get_lang()
+        t = translations.get(lang, translations['en'])
+        session['message'] = t['welcome_register']
+
+        return redirect('/')
 
     return render_template('register.html')
 
@@ -103,6 +143,11 @@ def login():
 
         if user:
             session['user'] = username
+
+            lang = get_lang()
+            t = translations.get(lang, translations['en'])
+            session['message'] = t['welcome_login']
+
             return redirect('/')
         else:
             return "Invalid login"
@@ -115,7 +160,7 @@ def logout():
     session.pop('user', None)
     return redirect('/')
 
-# 📞 Contacts page
+# 📞 Contacts
 @app.route('/contacts')
 def contacts():
     return render_template('contacts.html')
