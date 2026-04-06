@@ -1,3 +1,4 @@
+/* 🌍 GLOBAL */
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
@@ -5,22 +6,23 @@ body {
     color: white;
 }
 
-/* MAIN CONTAINER */
+/* 📦 MAIN CONTAINER */
 .container {
     max-width: 420px;
     margin: auto;
     padding: 20px;
 }
 
-/* HEADER */
+/* 🧠 HEADER */
 .header {
     text-align: center;
     margin-top: 30px;
 }
 
 .header h1 {
-    font-size: 24px;
+    font-size: 22px;
     margin-bottom: 5px;
+    font-weight: 600;
 }
 
 .subtitle {
@@ -28,65 +30,98 @@ body {
     opacity: 0.7;
 }
 
-/* MESSAGE */
+/* 💬 MESSAGE BOX */
 .message {
     margin: 15px 0;
     padding: 12px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.08);
     text-align: center;
+    font-size: 13px;
 }
 
-/* DASHBOARD GRID */
+/* 🧩 DASHBOARD GRID (MORE CLEAN) */
 .dashboard {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-top: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 25px;
 }
 
-/* CARD STYLE */
+/* 🧱 CARD DESIGN (SMALLER + PREMIUM) */
 .card {
-    background: rgba(255,255,255,0.08);
-    padding: 25px;
-    border-radius: 18px;
+    background: rgba(255,255,255,0.07);
+    padding: 16px 10px;
+    border-radius: 14px;
     text-align: center;
     text-decoration: none;
     color: white;
-    font-size: 22px;
-    backdrop-filter: blur(12px);
-    transition: all 0.25s ease;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    transition: all 0.2s ease;
 }
 
-.card span {
+/* 🔹 ICON */
+.card .icon {
+    font-size: 20px;
+}
+
+/* 🔹 TEXT LABEL */
+.card .label {
     display: block;
-    font-size: 13px;
-    margin-top: 8px;
+    font-size: 11px;
+    margin-top: 6px;
+    opacity: 0.8;
 }
 
-/* HOVER */
+/* ✨ HOVER EFFECT (SUBTLE & CLEAN) */
 .card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.15);
+}
+
+/* 🚀 PRIMARY ACTION (POST JOB) */
+.highlight {
+    background: linear-gradient(135deg, #6366f1, #22c55e);
+    color: white;
+}
+
+/* 🌐 LANGUAGE SECTION */
+.language {
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* 🌍 LANGUAGE BUTTONS (MORE ELEGANT) */
+.language a {
+    margin: 0 6px;
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.08);
+    color: white;
+    font-size: 11px;
+    transition: 0.2s;
+}
+
+/* ✨ LANGUAGE HOVER */
+.language a:hover {
     background: rgba(255,255,255,0.2);
 }
 
-/* SPECIAL BUTTON */
-.highlight {
-    background: linear-gradient(135deg, #6366f1, #22c55e);
-}
-
-/* LANGUAGE */
-.language {
-    margin-top: 25px;
+/* 👋 USER WELCOME TEXT */
+.welcome {
     text-align: center;
+    margin-top: 10px;
+    font-size: 13px;
+    opacity: 0.8;
 }
 
-.language a {
-    margin: 0 8px;
-    text-decoration: none;
-    padding: 6px 12px;
-    border-radius: 8px;
-    background: rgba(255,255,255,0.1);
-    color: white;
-    font-size: 12px;
+/* 📱 MOBILE PERFECT SPACING */
+@media (max-width: 400px) {
+    .dashboard {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
