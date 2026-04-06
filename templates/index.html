@@ -1,53 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Community Help App</title>
+
+    <!-- ✅ PWA Manifest -->
+    <link rel="manifest" href="/static/manifest.json">
+
+    <!-- ✅ Mobile settings -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2b2bff">
+
+    <!-- ✅ Apple support (VERY IMPORTANT) -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="CommunityApp">
+    <link rel="apple-touch-icon" href="/static/icon.png">
+
+    <!-- ✅ CSS -->
     <link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body>
 
 <div class="container">
+    <h1>🌍 Community Help App</h1>
 
-    <!-- Header -->
-    <h1>🌍 Community Help</h1>
-    <p class="subtitle">
-        Connecting people who need help with those who can work
-    </p>
+    <p>Connecting workers and opportunities</p>
 
-    <!-- Main Actions -->
-    <div class="actions">
-        <a class="btn" href="/jobs">🔎 View Jobs</a>
-        <a class="btn secondary" href="/post">➕ Post a Job</a>
-        <a class="btn" href="/contacts">🚨 Emergency</a>
-    </div>
+    <br>
 
-    <!-- 👇 LOGIN / USER SECTION -->
-    <div style="margin-top:20px;">
-        {% if session.get('user') %}
-            <p>Welcome, {{ session['user'] }} 👋</p>
-            <a class="btn" href="/logout">Logout</a>
-        {% else %}
-            <a class="btn" href="/login">Login</a>
-            <a class="btn secondary" href="/register">Register</a>
-        {% endif %}
-    </div>
-
-    <!-- Info Section -->
-    <div class="info">
-        <h3>How it works</h3>
-        <p>1. Post a job with details</p>
-        <p>2. Workers find opportunities nearby</p>
-        <p>3. Connect and get work done</p>
-    </div>
-
+    <a class="btn" href="/register">📝 Register</a>
+    <a class="btn" href="/login">🔐 Login</a>
+    <a class="btn" href="/jobs">💼 View Jobs</a>
 </div>
 
-<!-- Service Worker (offline feature) -->
+<!-- ✅ Service Worker (Improved) -->
 <script>
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/static/sw.js');
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/static/sw.js')
+        .then(function(registration) {
+            console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch(function(error) {
+            console.log('Service Worker registration failed:', error);
+        });
+    });
 }
 </script>
 
