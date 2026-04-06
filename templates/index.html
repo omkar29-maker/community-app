@@ -31,39 +31,39 @@
     <!-- DASHBOARD -->
     <div class="dashboard">
 
-        <a class="card" href="/register">
-            📝
-            <span>{{ t.register }}</span>
-        </a>
+    <a class="card" href="/register">
+        <div class="icon">📝</div>
+        <div class="label">{{ t.register }}</div>
+    </a>
 
-        <a class="card" href="/login">
-            🔐
-            <span>{{ t.login }}</span>
-        </a>
+    <a class="card" href="/login">
+        <div class="icon">🔐</div>
+        <div class="label">{{ t.login }}</div>
+    </a>
 
-        <a class="card" href="/jobs">
-            💼
-            <span>{{ t.jobs }}</span>
-        </a>
+    <a class="card" href="/jobs">
+        <div class="icon">💼</div>
+        <div class="label">{{ t.jobs }}</div>
+    </a>
 
-        {% if 'user' in session %}
-        <a class="card highlight" href="/post">
-            ➕
-            <span>{{ t.post }}</span>
-        </a>
+    {% if 'user' in session %}
+    <a class="card highlight" href="/post">
+        <div class="icon">➕</div>
+        <div class="label">{{ t.post }}</div>
+    </a>
 
-        <a class="card" href="/logout">
-            🚪
-            <span>{{ t.logout }}</span>
-        </a>
-        {% endif %}
+    <a class="card" href="/logout">
+        <div class="icon">🚪</div>
+        <div class="label">{{ t.logout }}</div>
+    </a>
+    {% endif %}
 
-        <a class="card" href="/contacts">
-            📞
-            <span>{{ t.contacts }}</span>
-        </a>
+    <a class="card" href="/contacts">
+        <div class="icon">📞</div>
+        <div class="label">{{ t.contacts }}</div>
+    </a>
 
-    </div>
+</div>
 
     <!-- LANGUAGE -->
     <div class="language">
