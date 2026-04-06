@@ -3,6 +3,10 @@
 <head>
     <title>Community Help App</title>
 
+    {% if message %}
+    <p style="color: green; font-weight: bold;">{{ message }}</p>
+{% endif %}
+
     <!-- PWA -->
     <link rel="manifest" href="/static/manifest.json">
     <meta name="theme-color" content="#2b2bff">
