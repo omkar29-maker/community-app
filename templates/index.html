@@ -3,10 +3,12 @@
 <head>
     <title>{{ t.title }}</title>
 
-    <!-- PWA -->
     <link rel="manifest" href="/static/manifest.json">
-    <meta name="theme-color" content="#2b2bff">
+    <meta name="theme-color" content="#111827">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/static/style.css">
 </head>
@@ -15,49 +17,66 @@
 
 <div class="container">
 
-    <!-- ✅ MESSAGE (CORRECT POSITION) -->
+    <!-- TOP SECTION -->
+    <div class="header">
+        <h1>🌍 {{ t.title }}</h1>
+        <p class="subtitle">Connecting people with opportunities</p>
+    </div>
+
+    <!-- MESSAGE -->
     {% if message %}
-        <p style="color: green; font-weight: bold;">{{ message }}</p>
+        <div class="message">{{ message }}</div>
     {% endif %}
 
-    <!-- TITLE -->
-    <h1>🌍 {{ t.title }}</h1>
+    <!-- DASHBOARD -->
+    <div class="dashboard">
 
-    <p>Connecting workers and opportunities</p>
+        <a class="card" href="/register">
+            📝
+            <span>{{ t.register }}</span>
+        </a>
 
-    <br>
+        <a class="card" href="/login">
+            🔐
+            <span>{{ t.login }}</span>
+        </a>
 
-    <!-- MAIN BUTTONS -->
-    <a class="btn" href="/register">📝 {{ t.register }}</a>
-    <a class="btn" href="/login">🔐 {{ t.login }}</a>
-    <a class="btn" href="/jobs">💼 {{ t.jobs }}</a>
+        <a class="card" href="/jobs">
+            💼
+            <span>{{ t.jobs }}</span>
+        </a>
 
-    <br><br>
+        {% if 'user' in session %}
+        <a class="card highlight" href="/post">
+            ➕
+            <span>{{ t.post }}</span>
+        </a>
 
-    <!-- SHOW ONLY IF LOGGED IN -->
-    {% if 'user' in session %}
-        <a class="btn" href="/post">➕ {{ t.post }}</a>
-        <a class="btn" href="/logout">🚪 {{ t.logout }}</a>
-    {% endif %}
+        <a class="card" href="/logout">
+            🚪
+            <span>{{ t.logout }}</span>
+        </a>
+        {% endif %}
 
-    <br><br>
+        <a class="card" href="/contacts">
+            📞
+            <span>{{ t.contacts }}</span>
+        </a>
 
-    <!-- EXTRA FEATURES -->
-    <a class="btn" href="/contacts">📞 {{ t.contacts }}</a>
+    </div>
 
-    <br><br>
+    <!-- LANGUAGE -->
+    <div class="language">
+        <p>🌐 Language</p>
 
-    <!-- 🌐 LANGUAGE SWITCH -->
-    <h3>🌐 Language</h3>
-
-    <a class="btn" href="/set_language/en">English</a>
-    <a class="btn" href="/set_language/hi">हिन्दी</a>
-    <a class="btn" href="/set_language/mr">मराठी</a>
-    <a class="btn" href="/set_language/kr">한국어</a>
+        <a href="/set_language/en">EN</a>
+        <a href="/set_language/hi">हिं</a>
+        <a href="/set_language/mr">मर</a>
+        <a href="/set_language/kr">한</a>
+    </div>
 
 </div>
 
-<!-- Service Worker -->
 <script>
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/static/sw.js');
