@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ t.title }}</title>
+    <title>{{ t.title if t and t.title else "Community Help App" }}</title>
 
     <link rel="manifest" href="/static/manifest.json">
     <meta name="theme-color" content="#111827">
@@ -17,11 +17,18 @@
 
 <div class="container">
 
-    <!-- TOP SECTION -->
+    <!-- HEADER -->
     <div class="header">
-        <h1>🌍 {{ t.title }}</h1>
-        <p class="subtitle">Connecting people with opportunities</p>
+        <h1>🌍 {{ t.title if t and t.title else "Community Help App" }}</h1>
+        <p class="subtitle">
+            {{ t.subtitle if t and t.subtitle else "Connecting people with opportunities" }}
+        </p>
     </div>
+
+    <!-- WELCOME -->
+    {% if 'user' in session %}
+        <p class="welcome">👋 Welcome, {{ session['user'] }}</p>
+    {% endif %}
 
     <!-- MESSAGE -->
     {% if message %}
@@ -31,39 +38,51 @@
     <!-- DASHBOARD -->
     <div class="dashboard">
 
-    <a class="card" href="/register">
-        <div class="icon">📝</div>
-        <div class="label">{{ t.register }}</div>
-    </a>
+        <a class="card" href="/register">
+            <div class="icon">📝</div>
+            <div class="label">
+                {{ t.register if t and t.register else "Register" }}
+            </div>
+        </a>
 
-    <a class="card" href="/login">
-        <div class="icon">🔐</div>
-        <div class="label">{{ t.login }}</div>
-    </a>
+        <a class="card" href="/login">
+            <div class="icon">🔐</div>
+            <div class="label">
+                {{ t.login if t and t.login else "Login" }}
+            </div>
+        </a>
 
-    <a class="card" href="/jobs">
-        <div class="icon">💼</div>
-        <div class="label">{{ t.jobs }}</div>
-    </a>
+        <a class="card" href="/jobs">
+            <div class="icon">💼</div>
+            <div class="label">
+                {{ t.jobs if t and t.jobs else "Jobs" }}
+            </div>
+        </a>
 
-    {% if 'user' in session %}
-    <a class="card highlight" href="/post">
-        <div class="icon">➕</div>
-        <div class="label">{{ t.post }}</div>
-    </a>
+        {% if 'user' in session %}
+        <a class="card highlight" href="/post">
+            <div class="icon">➕</div>
+            <div class="label">
+                {{ t.post if t and t.post else "Post Job" }}
+            </div>
+        </a>
 
-    <a class="card" href="/logout">
-        <div class="icon">🚪</div>
-        <div class="label">{{ t.logout }}</div>
-    </a>
-    {% endif %}
+        <a class="card" href="/logout">
+            <div class="icon">🚪</div>
+            <div class="label">
+                {{ t.logout if t and t.logout else "Logout" }}
+            </div>
+        </a>
+        {% endif %}
 
-    <a class="card" href="/contacts">
-        <div class="icon">📞</div>
-        <div class="label">{{ t.contacts }}</div>
-    </a>
+        <a class="card" href="/contacts">
+            <div class="icon">📞</div>
+            <div class="label">
+                {{ t.contacts if t and t.contacts else "Emergency" }}
+            </div>
+        </a>
 
-</div>
+    </div>
 
     <!-- LANGUAGE -->
     <div class="language">
