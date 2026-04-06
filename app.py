@@ -1,54 +1,52 @@
 from flask import Flask, render_template, request, redirect, session
-import sqlite3
+import os
+import psycopg2
 
 app = Flask(__name__)
-app.secret_key = "secret123"  # needed for login
+app.secret_key = "secret123"
 
-def init_db():
-    conn = sqlite3.connect('database.db')
-    c = conn.cursor()
+# 🔗 Connect to PostgreSQL
+DATABASE_URL = os.environ.get("DATABASE_URL")
+conn = psycopg2.connect(DATABASE_URL)
+cursor = conn.cursor()
 
-    # Jobs table
-    c.execute('''
-        CREATE TABLE IF NOT EXISTS jobs (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT,
-            location TEXT,
-            contact TEXT,
-            salary TEXT,
-            workers TEXT,
-            meals TEXT,
-            description TEXT
-        )
-    ''')
+# 🛠️ Create tables if not exist
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    username TEXT,
+    password TEXT
+);
+""")
 
-    # Users table
-    c.execute('''
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT,
-            password TEXT
-        )
-    ''')
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS jobs (
+    id SERIAL PRIMARY KEY,
+    title TEXT,
+    location TEXT,
+    contact TEXT,
+    salary TEXT,
+    workers TEXT,
+    meals TEXT,
+    description TEXT
+);
+""")
 
-    conn.commit()
-    conn.close()
+conn.commit()
 
-init_db()
-
+# 🏠 Home
 @app.route('/')
 def index():
     return render_template('index.html')
 
+# 📋 View Jobs
 @app.route('/jobs')
 def jobs():
-    conn = sqlite3.connect('database.db')
-    c = conn.cursor()
-    c.execute("SELECT * FROM jobs")
-    data = c.fetchall()
-    conn.close()
+    cursor.execute("SELECT * FROM jobs ORDER BY id DESC")
+    data = cursor.fetchall()
     return render_template('jobs.html', jobs=data)
 
+# ➕ Post Job
 @app.route('/post', methods=['GET', 'POST'])
 def post_job():
     if 'user' not in session:
@@ -63,33 +61,29 @@ def post_job():
         meals = request.form['meals']
         description = request.form['description']
 
-        conn = sqlite3.connect('database.db')
-        c = conn.cursor()
-        c.execute("""
+        cursor.execute("""
         INSERT INTO jobs (title, location, contact, salary, workers, meals, description)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
         """, (title, location, contact, salary, workers, meals, description))
 
         conn.commit()
-        conn.close()
-
         return redirect('/jobs')
 
     return render_template('post_job.html')
 
-# 🔐 Register
+# 📝 Register
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
 
-        conn = sqlite3.connect('database.db')
-        c = conn.cursor()
-        c.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, password))
-        conn.commit()
-        conn.close()
+        cursor.execute("""
+        INSERT INTO users (username, password)
+        VALUES (%s, %s)
+        """, (username, password))
 
+        conn.commit()
         return redirect('/login')
 
     return render_template('register.html')
@@ -101,11 +95,11 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        conn = sqlite3.connect('database.db')
-        c = conn.cursor()
-        c.execute("SELECT * FROM users WHERE username=? AND password=?", (username, password))
-        user = c.fetchone()
-        conn.close()
+        cursor.execute("""
+        SELECT * FROM users WHERE username=%s AND password=%s
+        """, (username, password))
+
+        user = cursor.fetchone()
 
         if user:
             session['user'] = username
@@ -115,12 +109,13 @@ def login():
 
     return render_template('login.html')
 
-# 🔐 Logout
+# 🚪 Logout
 @app.route('/logout')
 def logout():
     session.pop('user', None)
     return redirect('/')
 
+# 📞 Contacts page
 @app.route('/contacts')
 def contacts():
     return render_template('contacts.html')
