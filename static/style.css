@@ -1,57 +1,92 @@
 body {
-    font-family: Arial;
-    background: linear-gradient(to right, #e3f2fd, #ffffff);
     margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f172a, #1e3a8a);
+    color: white;
 }
 
+/* MAIN CONTAINER */
 .container {
-    width: 90%;
-    max-width: 800px;
+    max-width: 420px;
     margin: auto;
+    padding: 20px;
+}
+
+/* HEADER */
+.header {
     text-align: center;
-    padding: 20px;
+    margin-top: 30px;
 }
 
-h1, h2 {
-    color: #333;
+.header h1 {
+    font-size: 24px;
+    margin-bottom: 5px;
 }
 
-.btn {
-    display: inline-block;
-    padding: 12px 25px;
-    margin: 10px;
-    background: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
+.subtitle {
+    font-size: 13px;
+    opacity: 0.7;
 }
 
-.btn:hover {
-    background: #0056b3;
-}
-
-form input, form textarea, select {
-    width: 90%;
-    padding: 12px;
-    margin: 8px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-
-button {
-    padding: 12px 25px;
-    background: green;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-}
-
-.card {
-    background: white;
-    padding: 20px;
+/* MESSAGE */
+.message {
     margin: 15px 0;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.1);
+    text-align: center;
+}
+
+/* DASHBOARD GRID */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* CARD STYLE */
+.card {
+    background: rgba(255,255,255,0.08);
+    padding: 25px;
+    border-radius: 18px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    font-size: 22px;
+    backdrop-filter: blur(12px);
+    transition: all 0.25s ease;
+}
+
+.card span {
+    display: block;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+/* HOVER */
+.card:hover {
+    transform: translateY(-5px);
+    background: rgba(255,255,255,0.2);
+}
+
+/* SPECIAL BUTTON */
+.highlight {
+    background: linear-gradient(135deg, #6366f1, #22c55e);
+}
+
+/* LANGUAGE */
+.language {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.language a {
+    margin: 0 8px;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    font-size: 12px;
 }
